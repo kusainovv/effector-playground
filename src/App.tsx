@@ -6,21 +6,15 @@ import { useStore } from 'effector-react'
 import { createEffect, createStore } from 'effector'
 
 
-const sideEffect = createEffect(async () => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
-  return response.json();
+const sayHi = createEffect();
+
+sayHi.watch(() => {
+  alert('Hello!');
 });
 
-const $user = createStore({})
-  .on(sideEffect.doneData, (state, payload) => payload);
-
-sideEffect();
-
 function App() {
-  const input = useStore($user);
-  console.warn(input);
   return (
-    <div className="App">
+    <div onClick={sayHi}>
       <h1>Hello World</h1>
     </div>
   )
